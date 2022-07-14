@@ -14,15 +14,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet var dDayLabels: [UILabel]!
     @IBOutlet var anniversaryDateLabels: [UILabel]!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
     }
     
     func setUI() {
-        
         // 기념일 박스 4개 및 레이블 UI 설정
         for i in 0...(anniversaryBoxes.count - 1) {
             anniversaryBoxes[i].layer.cornerRadius = 8
@@ -39,44 +37,42 @@ class ViewController: UIViewController {
             dDayLabels[i].textColor = UIColor.white
             dDayLabels[i].font = UIFont.boldSystemFont(ofSize: 25) // 폰트 더 굵은거로 수정 필요
             
+            anniversaryDateLabels[i].text = "언제일까?!"
             anniversaryDateLabels[i].textColor = UIColor.white
             anniversaryDateLabels[i].font = UIFont.systemFont(ofSize: 18)
-
         }
-        
         
         // datepicker - ios14이후에서도 wheel 스타일 적용되도록 설정
         if #available(iOS 14.0, *) {
-            
             datePicker.preferredDatePickerStyle = .wheels
             datePicker.datePickerMode = .date
         }
     }
-
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        
-        // 양식정리
+        // 계산된 일자 4개를 결과레이블에 담기
+        for resultDate in anniversaryDateLabels {
+            let plus = (resultDate.tag + 1) * 100
+            resultDate.text = dateToFormattedString(pickedDate: sender, plusDay: plus)
+        }
+    }
+    
+    // datepicker로 선택한 날짜에 특정일만큼 더한 결과를 나타냄
+    // Date -> String
+    func dateToFormattedString(pickedDate: UIDatePicker, plusDay: Int) -> String {
+        // DateFormatter로 일자속성 설정
         let format = DateFormatter()
         format.dateFormat = #"yyyy년\#nMM월 dd일"#
-        format.locale = Locale(identifier: "ko_KR")
-        format.timeZone = TimeZone.current
+        format.locale = Locale(identifier: Locale.current.identifier)
+        format.timeZone = TimeZone(identifier: TimeZone.current.identifier)
         
-        // 시작일자 저장
-        var pickedDate = Date()
-        pickedDate = datePicker.date
-
-        // 100~400일들 더해주기
-        let pickerDateAdd100 = pickedDate.addingTimeInterval(3600*24*100)
-        let pickerDateAdd200 = pickedDate.addingTimeInterval(3600*24*200)
-        let pickerDateAdd300 = pickedDate.addingTimeInterval(3600*24*300)
-        let pickerDateAdd400 = pickedDate.addingTimeInterval(3600*24*400)
+        // 선택된 일자에 특정 일수만큼 더해줌
+        let date = pickedDate.date
+        let calculatedDate = date.addingTimeInterval(TimeInterval(3600*24*plusDay))
         
-        anniversaryDateLabels[0].text = format.string(from: pickerDateAdd100)
-        anniversaryDateLabels[1].text = format.string(from: pickerDateAdd200)
-        anniversaryDateLabels[2].text = format.string(from: pickerDateAdd300)
-        anniversaryDateLabels[3].text = format.string(from: pickerDateAdd400)
-
+        // 더해진 결과일자를 string으로 변환한 값을 돌려줌
+        return format.string(from: calculatedDate)
     }
 }
+
 
