@@ -22,6 +22,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="360" id="6zp-q1-0i6"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="datePickerValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="bIT-v0-qTx"/>
+                                </connections>
                             </datePicker>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image1" translatesAutoresizingMaskIntoConstraints="NO" id="3KG-dE-JkB" userLabel="Image View1">
                                 <rect key="frame" x="27" y="447.5" width="174" height="174"/>
