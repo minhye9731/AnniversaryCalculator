@@ -14,17 +14,29 @@ class ViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet var dDayLabels: [UILabel]!
     @IBOutlet var anniversaryDateLabels: [UILabel]!
-    
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        showData()
         setUI()
-        setButton(btn: resetButton, title: "Reset")
-        setButton(btn: saveButton, title: "Save")
     }
     
+    func showData() {
+        // anniversaryDateLabels에 일자 넣어주는 구문
+        for resultDate in anniversaryDateLabels {
+            if defaults.string(forKey: "date\(resultDate.tag)") != nil {
+                //가져오기
+                resultDate.text = defaults.string(forKey: "date\(resultDate.tag)")
+            } else {
+                // 저장된 일자가 없을 경우에 넣어주는 구문
+                resultDate.text = "Good Day"
+            }
+        }
+    }
     func setUI() {
         // 기념일 박스 4개 및 레이블 UI 설정
         for i in 0...(anniversaryBoxes.count - 1) {
@@ -41,19 +53,21 @@ class ViewController: UIViewController {
             dDayLabels[i].text = "D+\(i + 1)00"
             dDayLabels[i].textColor = UIColor.white
             dDayLabels[i].font = UIFont.boldSystemFont(ofSize: 25) // 폰트 더 굵은거로 수정 필요
-            
-            anniversaryDateLabels[i].text = "언제일까?!"
+
             anniversaryDateLabels[i].textColor = UIColor.white
             anniversaryDateLabels[i].font = UIFont.systemFont(ofSize: 18)
         }
-        
+        setWheelStyle()
+        setButton(btn: resetButton, title: "Reset")
+        setButton(btn: saveButton, title: "Save")
+    }
+    func setWheelStyle() {
         // datepicker - ios14이후에서도 wheel 스타일 적용되도록 설정
         if #available(iOS 14.0, *) {
             datePicker.preferredDatePickerStyle = .wheels
             datePicker.datePickerMode = .date
         }
     }
-    
     func setButton(btn: UIButton, title: String) {
         btn.backgroundColor = UIColor.white
         btn.layer.borderWidth = 2
@@ -70,18 +84,14 @@ class ViewController: UIViewController {
         btn.layer.shadowOffset = CGSize.zero
     }
     
-    
-    
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        // 계산된 일자 4개를 결과레이블에 담기
         for resultDate in anniversaryDateLabels {
             let plus = (resultDate.tag + 1) * 100
             resultDate.text = dateToFormattedString(pickedDate: sender, plusDay: plus)
         }
     }
     
-    // datepicker로 선택한 날짜에 특정일만큼 더한 결과를 나타냄
-    // Date -> String
+    // datepicker로 선택한 날짜에 특정일만큼 더한 결과를 나타냄 (Date -> String)
     func dateToFormattedString(pickedDate: UIDatePicker, plusDay: Int) -> String {
         // DateFormatter로 일자속성 설정
         let format = DateFormatter()
@@ -95,6 +105,42 @@ class ViewController: UIViewController {
         
         // 더해진 결과일자를 string으로 변환한 값을 돌려줌
         return format.string(from: calculatedDate)
+    }
+    
+    // MARK: - 계산된 기념일 저장하기
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        // 저장하기
+        for resultDate in anniversaryDateLabels {
+            let date = self.anniversaryDateLabels[resultDate.tag].text
+            defaults.set(date, forKey: "date\(resultDate.tag)")
+            print("저장됨")
+        }
+        
+        // 저장 알림창 띄우기
+        
+        
+        
+    }
+    
+    // MARK: - 저장된 기념일 데이터 초기화하기
+    @IBAction func resetButtonTapped(_ sender: UIButton) {
+        // 초기화하기
+        for resultDate in anniversaryDateLabels {
+            // 삭제하고
+            defaults.removeObject(forKey: "date\(resultDate.tag)")
+            
+            // 삭제한 상태를 가져와서 저장하고
+            let currentValue = defaults.string(forKey: "date\(resultDate.tag)")
+            defaults.set(currentValue, forKey: "date\(resultDate.tag)")
+            
+            // 전체 감정숫자 출력
+            resultDate.text = "Happy Day"
+        }
+        
+        // 초기화 성공 알림창 띄우기
+        
+        
+        
     }
 }
 
