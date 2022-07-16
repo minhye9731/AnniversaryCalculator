@@ -15,9 +15,14 @@ class ViewController: UIViewController {
     @IBOutlet var dDayLabels: [UILabel]!
     @IBOutlet var anniversaryDateLabels: [UILabel]!
     
+    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        setButton(btn: resetButton, title: "Reset")
+        setButton(btn: saveButton, title: "Save")
     }
     
     func setUI() {
@@ -48,6 +53,24 @@ class ViewController: UIViewController {
             datePicker.datePickerMode = .date
         }
     }
+    
+    func setButton(btn: UIButton, title: String) {
+        btn.backgroundColor = UIColor.white
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.systemPink.cgColor
+        btn.setTitle(title, for: .normal)
+        btn.setTitleColor(.darkGray, for: .normal)
+        btn.setTitleColor(.systemPink, for: .highlighted)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        btn.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
+        btn.layer.cornerRadius = 23
+        btn.layer.shadowRadius = 23
+        btn.layer.shadowColor = UIColor.gray.cgColor
+        btn.layer.shadowOpacity = 0.3
+        btn.layer.shadowOffset = CGSize.zero
+    }
+    
+    
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         // 계산된 일자 4개를 결과레이블에 담기
