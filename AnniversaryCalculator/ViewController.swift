@@ -109,22 +109,23 @@ class ViewController: UIViewController {
     
     // MARK: - 계산된 기념일 저장하기
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        // 저장하기
-        for resultDate in anniversaryDateLabels {
-            let date = self.anniversaryDateLabels[resultDate.tag].text
-            defaults.set(date, forKey: "date\(resultDate.tag)")
-            print("저장됨")
-        }
-        
-        // 저장 알림창 띄우기
-        
-        
-        
+        saveData() // 저장하기
+        saveAlert() // 저장 알림창 띄우기
     }
     
     // MARK: - 저장된 기념일 데이터 초기화하기
     @IBAction func resetButtonTapped(_ sender: UIButton) {
-        // 초기화하기
+        resetData() // 초기화하기
+        resetAlert() // 초기화 성공 알림창 띄우기
+    }
+    
+    func saveData() {
+        for resultDate in anniversaryDateLabels {
+            let date = self.anniversaryDateLabels[resultDate.tag].text
+            defaults.set(date, forKey: "date\(resultDate.tag)")
+        }
+    }
+    func resetData() {
         for resultDate in anniversaryDateLabels {
             // 삭제하고
             defaults.removeObject(forKey: "date\(resultDate.tag)")
@@ -136,11 +137,19 @@ class ViewController: UIViewController {
             // 전체 감정숫자 출력
             resultDate.text = "Happy Day"
         }
-        
-        // 초기화 성공 알림창 띄우기
-        
-        
-        
+    }
+    
+    func saveAlert() {
+        let saveAlert = UIAlertController(title: "<알림>", message: "기념일이 저장되었습니다.", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .destructive, handler: nil)
+        saveAlert.addAction(ok)
+        present(saveAlert, animated: true, completion: nil)
+    }
+    func resetAlert() {
+        let resetAlert = UIAlertController(title: "<알림>", message: "기념일 정보가 초기화되었습니다.", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .destructive, handler: nil)
+        resetAlert.addAction(ok)
+        present(resetAlert, animated: true, completion: nil)
     }
 }
 
