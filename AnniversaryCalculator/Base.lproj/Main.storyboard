@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--What a Day-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AnniversaryCalculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -226,7 +226,7 @@
                             <constraint firstItem="7bT-Og-X30" firstAttribute="top" secondItem="KrG-2F-Taw" secondAttribute="top" id="zOX-g2-yLa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="What a Day" id="hJ0-x8-LWo">
+                    <navigationItem key="navigationItem" id="hJ0-x8-LWo">
                         <barButtonItem key="backBarButtonItem" title=" " id="zg8-LA-e4b"/>
                         <barButtonItem key="leftBarButtonItem" id="lZt-YU-j3P">
                             <imageReference key="image" image="list.dash" catalog="system" symbolScale="large"/>
@@ -369,6 +369,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ymR-fU-CFx">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                         <navigationBarAppearance key="standardAppearance"/>
                         <navigationBarAppearance key="scrollEdgeAppearance">
                             <color key="backgroundColor" systemColor="systemPinkColor"/>

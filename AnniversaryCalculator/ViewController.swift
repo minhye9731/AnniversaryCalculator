@@ -23,6 +23,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         showData()
         setUI()
+        setNavigationTitle()
+        
     }
     
     func showData() {
@@ -44,7 +46,7 @@ class ViewController: UIViewController {
             anniversaryBoxes[i].clipsToBounds = true
             anniversaryBoxes[i].clipsToBounds = true
             anniversaryBoxes[i].layer.shadowColor = UIColor.gray.cgColor
-            anniversaryBoxes[i].layer.shadowOpacity = 0.8
+            anniversaryBoxes[i].layer.shadowOpacity = 0.2
             anniversaryBoxes[i].layer.shadowOffset = CGSize.zero
             anniversaryBoxes[i].layer.shadowRadius = 4
             
@@ -80,8 +82,12 @@ class ViewController: UIViewController {
         btn.layer.cornerRadius = 23
         btn.layer.shadowRadius = 23
         btn.layer.shadowColor = UIColor.gray.cgColor
-        btn.layer.shadowOpacity = 0.3
+        btn.layer.shadowOpacity = 0.8
         btn.layer.shadowOffset = CGSize.zero
+    }
+    func setNavigationTitle() {
+        navigationController?.navigationBar.topItem?.title = "What a Day!"
+        navigationController?.navigationBar.scrollEdgeAppearance?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
