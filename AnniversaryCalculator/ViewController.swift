@@ -43,7 +43,6 @@ class ViewController: UIViewController {
         for i in 0...(anniversaryBoxes.count - 1) {
             anniversaryBoxes[i].layer.cornerRadius = 8
             anniversaryBoxes[i].clipsToBounds = true
-            anniversaryBoxes[i].clipsToBounds = true
             anniversaryBoxes[i].layer.shadowColor = UIColor.gray.cgColor
             anniversaryBoxes[i].layer.shadowOpacity = 0.2
             anniversaryBoxes[i].layer.shadowOffset = CGSize.zero
