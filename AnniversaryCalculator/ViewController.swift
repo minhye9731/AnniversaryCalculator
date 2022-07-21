@@ -53,7 +53,7 @@ class ViewController: UIViewController {
             
             dDayLabels[i].text = "D+\(i + 1)00"
             dDayLabels[i].textColor = UIColor.white
-            dDayLabels[i].font = UIFont.boldSystemFont(ofSize: 25) // 폰트 더 굵은거로 수정 필요
+            dDayLabels[i].font = UIFont.preferredFont(forTextStyle: .largeTitle)
             
             anniversaryDateLabels[i].textColor = UIColor.white
             anniversaryDateLabels[i].font = UIFont.systemFont(ofSize: 18)
