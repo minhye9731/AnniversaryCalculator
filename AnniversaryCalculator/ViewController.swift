@@ -24,7 +24,6 @@ class ViewController: UIViewController {
         showData()
         setUI()
         setNavigationTitle()
-        
     }
     
     func showData() {
@@ -55,7 +54,7 @@ class ViewController: UIViewController {
             dDayLabels[i].text = "D+\(i + 1)00"
             dDayLabels[i].textColor = UIColor.white
             dDayLabels[i].font = UIFont.boldSystemFont(ofSize: 25) // 폰트 더 굵은거로 수정 필요
-
+            
             anniversaryDateLabels[i].textColor = UIColor.white
             anniversaryDateLabels[i].font = UIFont.systemFont(ofSize: 18)
         }
@@ -85,8 +84,9 @@ class ViewController: UIViewController {
         btn.layer.shadowOpacity = 0.8
         btn.layer.shadowOffset = CGSize.zero
     }
+    
     func setNavigationTitle() {
-        navigationController?.navigationBar.topItem?.title = "What a Day!"
+        navigationItem.title = "What a Day!"
         navigationController?.navigationBar.scrollEdgeAppearance?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
@@ -116,13 +116,13 @@ class ViewController: UIViewController {
     // MARK: - 계산된 기념일 저장하기
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         saveData() // 저장하기
-        saveAlert() // 저장 알림창 띄우기
+        dataManageAlert(message: "기념일이 저장되었습니다.") // 저장 알림창 띄우기
     }
     
     // MARK: - 저장된 기념일 데이터 초기화하기
     @IBAction func resetButtonTapped(_ sender: UIButton) {
         resetData() // 초기화하기
-        resetAlert() // 초기화 성공 알림창 띄우기
+        dataManageAlert(message: "기념일 정보가 초기화되었습니다.") // 초기화 성공 알림창 띄우기
     }
     
     func saveData() {
@@ -145,17 +145,11 @@ class ViewController: UIViewController {
         }
     }
     
-    func saveAlert() {
-        let saveAlert = UIAlertController(title: "<알림>", message: "기념일이 저장되었습니다.", preferredStyle: .alert)
+    func dataManageAlert(message: String) {
+        let alert = UIAlertController(title: "<알림>", message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "확인", style: .destructive, handler: nil)
-        saveAlert.addAction(ok)
-        present(saveAlert, animated: true, completion: nil)
-    }
-    func resetAlert() {
-        let resetAlert = UIAlertController(title: "<알림>", message: "기념일 정보가 초기화되었습니다.", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "확인", style: .destructive, handler: nil)
-        resetAlert.addAction(ok)
-        present(resetAlert, animated: true, completion: nil)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 }
 
