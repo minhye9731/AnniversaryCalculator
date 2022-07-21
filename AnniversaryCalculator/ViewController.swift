@@ -29,11 +29,11 @@ class ViewController: UIViewController {
     func showData() {
         // anniversaryDateLabels에 일자 넣어주는 구문
         for resultDate in anniversaryDateLabels {
-            if defaults.string(forKey: "date\(resultDate.tag)") != nil {
-                //가져오기
-                resultDate.text = defaults.string(forKey: "date\(resultDate.tag)")
+            if let calculatedDate = defaults.string(forKey: "date\(resultDate.tag)") {
+                // nil이 아닌 경우
+                resultDate.text = calculatedDate
             } else {
-                // 저장된 일자가 없을 경우에 넣어주는 구문
+                // nil인 경우(저장된 일자가 없을 경우에 넣어주는 구문)
                 resultDate.text = "Good Day"
             }
         }
@@ -84,7 +84,6 @@ class ViewController: UIViewController {
         btn.layer.shadowOpacity = 0.8
         btn.layer.shadowOffset = CGSize.zero
     }
-    
     func setNavigationTitle() {
         navigationItem.title = "What a Day!"
         navigationController?.navigationBar.scrollEdgeAppearance?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
